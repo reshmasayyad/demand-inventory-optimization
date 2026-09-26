@@ -30,6 +30,8 @@ def fit_forecaster(values, metadata, cutoff, leaves):
 
 
 def baseline_prediction(values, origin, name):
+    if origin < 13 or origin > values.shape[1]:
+        raise ValueError('Invalid baseline forecast origin')
     if name == 'last_week':
         return HORIZON * values[:, origin - 1]
     if name not in {'mean4', 'mean13'}:
